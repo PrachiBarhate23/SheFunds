@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Literacy Courses</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: #010A43;
+            line-height: 1.6;
+        }
+
+        .logo {
+            color: #FD7899;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #5E0552;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FD7899;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: #FD7899;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            height: calc(100vh - 80px);
+            position: sticky;
+            top: 80px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: #5E0552;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .sidebar-menu {
+            list-style-type: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: #010A43;
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #FD7899;
+            color: white;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px 30px;
+        }
+
+        .hero {
+            background-color: #FFF0F3;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #FD7899;
+        }
+
+        .hero h1 {
+            color: #010A43;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+
+        .hero p {
+            color: #5E0552;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .cta-btn {
+            background-color: #010A43;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #02136e;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img {
+            width: 100%;
+            height: 180px;
+            background-color: #FD7899;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        .box1{
+            background-image: url(./budget.jpeg);
+            background-size: cover;
+        }
+        .box2{
+            background-image: url(./invest.jpeg);
+            background-size: cover;
+        }
+        .box3{
+            background-image: url(./save.jpeg);
+            background-size: cover;
+        }
+        .box4{
+            background-image: url(./debt.jpeg);
+            background-size: cover;
+        }
+        .box5{
+            background-image: url(./plan.jpeg);
+            background-size: cover;
+        }
+        .box6{
+            background-image: url(./score.jpeg);
+            background-size: cover;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-content h3 {
+            color: #010A43;
+            margin-bottom: 10px;
+        }
+
+        .course-content p {
+            color: #5E0552;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .course-btn {
+            background-color: #5E0552;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .course-btn:hover {
+            background-color: #7f0870;
+        }
+
+        .footer {
+            background-color: #010A43;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #FD7899;
+            text-decoration: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #010A43;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                display: none;
+            }
+
+            .sidebar.active {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .search-bar {
+                margin-left: auto;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">SheFunds</a>
+            <div class="nav-links">
+                <li><a href="hi.html">Home</a></li>
+                <a href="#">Courses</a>
+                <a href="#">Resources</a>
+               <li> <a href="aboutus.html">About</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search courses...">
+                <button class="search-btn">Search</button>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Learning Paths</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active">Budgeting Basics</a></li>
+                <li><a href="#">Smart Saving</a></li>
+                <li><a href="#">Debt Management</a></li>
+                <li><a href="#">Investment Fundamentals</a></li>
+                <li><a href="#">Retirement Planning</a></li>
+                <li><a href="#">Tax Optimization</a></li>
+                <li><a href="#">Real Estate</a></li>
+                <li><a href="#">Credit Building</a></li>
+                <li><a href="#">Emergency Funds</a></li>
+                <li><a href="#">Insurance Basics</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <section class="hero">
+                <h1>Financial Literacy Courses</h1>
+                <p>Step-by-step lessons on budgeting, saving, investing, and managing your money for a secure financial future.</p>
+                <button class="cta-btn">Start Learning Today</button>
+            </section>
+
+            <h2>Popular Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-img box1"></div>
+                    <div class="course-content">
+                        <h3>Budgeting Fundamentals</h3>
+                        <p>Learn how to create and stick to a budget that works for your lifestyle and financial goals.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-img box box2"></div>
+                    <div class="course-content">
+                        <h3>Investing for Beginners</h3>
+                        <p>Understand the basics of investing, different asset classes, and how to build your first portfolio.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-img box3"></div>
+                    <div class="course-content">
+                        <h3>Saving Strategies</h3>
+                        <p>Discover effective techniques to save money and build your emergency fund and financial security.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-img box4"></div>
+                    <div class="course-content">
+                        <h3>Debt Reduction</h3>
+                        <p>Learn proven methods to eliminate debt and achieve financial freedom through smart management.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-img box5"></div>
+                    <div class="course-content">
+                        <h3>Retirement Planning</h3>
+                        <p>Build a comprehensive retirement plan that ensures financial security in your golden years.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-img box6"></div>
+                    <div class="course-content">
+                        <h3>Credit Score Mastery</h3>
+                        <p>Understand credit scores, improve your rating, and leverage good credit for financial success.</p>
+                        <button class="course-btn">Start Course</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Financial Literacy Courses. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const sidebar = document.querySelector('.sidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Highlight active sidebar link
+        const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Remove active class from all links
+                sidebarLinks.forEach(item => item.classList.remove('active'));
+                // Add active class to clicked link
+                e.target.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        const searchBtn = document.querySelector('.search-btn');
+        const searchInput = document.querySelector('.search-bar input');
+
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            if (searchTerm) {
+                // Show search results (simplified for demo)
+                alert(`Searching for: ${searchTerm}`);
+                searchInput.value = '';
+            }
+        });
+
+        // Allow search on Enter key press
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        // Course buttons interaction
+        const courseButtons = document.querySelectorAll('.course-btn');
+        courseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const courseName = this.parentElement.querySelector('h3').textContent;
+                alert(`Enrolling in: ${courseName}`);
+            });
+        });
+
+        // CTA button interaction
+        const ctaButton = document.querySelector('.cta-btn');
+        ctaButton.addEventListener('click', () => {
+            alert('Welcome to Financial Literacy Courses! Let\'s get started on your financial journey.');
+        });
+    </script>
+</body>
+</html>

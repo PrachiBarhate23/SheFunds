@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheFunds - Login/Signup</title>
+    <style>
+        :root {
+            --primary-dark: #010A43;
+            --primary-light: #8fd9f7;
+            --secondary: #5e0552;
+            --accent: #fd7899;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+        }
+        
+        body {
+            background: url("background.jpg") center/cover no-repeat;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        .container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 1100px; /* Increase width */
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    min-height: 300px; /* Reduce height */
+}
+
+
+        .form-container {
+            padding: 40px;
+            width: 50%;
+            font-size: 20px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+        
+        .image-container {
+            background: url('background.jpg') center/cover no-repeat;
+            background-color: var(--primary-light);
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            perspective: 1000px; /* Adds depth for 3D effect */
+        }
+
+        .image-container img {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            transform-origin: center;
+            animation: rotate3D 15s infinite linear; /* Continuous rotation */
+        }
+
+        /* Keyframes for 3D Rotation */
+        @keyframes rotate3D {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between logo image and text */
+        }
+
+        .logo img {
+            width: 80px; /* Adjust size as needed */
+            height: auto;
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .shefunds-heading {
+            font-size: 48px; /* Adjust size as needed */
+            font-weight: bold;
+            color: #f31571; /* Dark text color */
+            margin-left: 1px;
+            margin-bottom: 10px; /* Adds spacing from the logo */
+        }
+        
+        .welcome-text {
+            font-size: 40px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: var(--primary-dark);
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary-dark);
+            font-size: 30px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: white;
+        }
+        
+        .input-group .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+            color: var(--danger);
+            display: none;
+        }
+        
+        .input-group.error input {
+            border-color: var(--danger);
+        }
+        
+        .input-group.error .validation-message {
+            display: block;
+        }
+        
+        .input-group.success input {
+            border-color: var(--success);
+        }
+        
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            overflow: hidden;
+        }
+        
+        .password-strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .password-strength-text {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .checkbox-group label {
+            font-size: 14px;
+            color: var(--primary-dark);
+        }
+        
+        .checkbox-group a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .btn svg {
+            margin-left: 8px;
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary-dark);
+        }
+        
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        .separator::before {
+            margin-right: 10px;
+        }
+        
+        .separator::after {
+            margin-left: 10px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--primary-light);
+            border-radius: 50px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .signup-text {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--primary-dark);
+        }
+        
+        .signup-text a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .form-toggle {
+            display: none;
+        }
+        
+        .signup-form {
+            display: none;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+        
+        .success-message h2 {
+            margin-bottom: 10px;
+            color: var(--success);
+        }
+        
+        .success-message p {
+            margin-bottom: 15px;
+        }
+        
+        .success-message .btn {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .form-container, .image-container {
+                width: 100%;
+            }
+            
+            .image-container {
+                display: none;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .welcome-text {
+                font-size: 32px;
+            }
+            
+            .shefunds-heading {
+                font-size: 36px;
+            }
+        }
+        
+        /* Animation for form switching */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-form, .signup-form, .success-message {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+                <h1 class="shefunds-heading">SheFunds</h1>
+            </div>
+            
+            <div class="welcome-text">Welcome back !!!</div>
+            
+            <!-- Login Form -->
+            <div class="login-form">
+                <h1>LOGIN</h1>
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="login@gmail.com">
+                    <span class="validation-message">Please enter a valid email address</span>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••••••">
+                    <span class="validation-message">Please enter your password</span>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button class="btn" id="login-btn">
+                    LOGIN
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <div class="separator">or continue with</div>
+                
+                <div class="social-login">
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#010A43">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF2E63">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="signup-text">
+                    <p>Don't have an account yet? <a href="#" id="show-signup">Sign up for free</a></p>
+                </div>
+            </div>
+            
+            <!-- Signup Form (initially hidden) -->
+            <div class="signup-form">
+                <h1>Create Account</h1>
+                <div class="input-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="Your name">
+                    <span class="validation-message">Please enter your full name</span>
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="your@email.com">
+                    <span class="validation-message">Please enter a valid email address</span>
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••••••">
+                    <div class="password-strength">
+                        <div class="password-strength-meter"></div>
+                    </div>
+                    <div class="password-strength-text"></div>
+                    <span class="validation-message">Password must be at least 8 characters with letters, numbers, and special characters</span>
+                </div>
+                <div class="input-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="••••••••••••">
+                    <span class="validation-message">Passwords do not match</span>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-checkbox">
+                    <label for="terms-checkbox">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                
+                <button class="btn" id="signup-btn" disabled>
+                    CREATE ACCOUNT
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <div class="separator">or continue with</div>
+                
+                <div class="social-login">
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#010A43">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF2E63">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="signup-text">
+                    <p>Already have an account? <a href="#" id="show-login">Log in</a></p>
+                </div>
+            </div>
+            
+            <!-- Success Message (initially hidden) -->
+            <div class="success-message" id="success-message">
+                <h2>Account Created Successfully!</h2>
+                <p>Thank you for joining SheFunds. Your account has been created successfully.</p>
+                <p>You can now log in with your email and password.</p>
+                <button class="btn" id="go-to-login">
+                    GO TO LOGIN
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="image-container">
+            <img src="3d-image.png" alt="Woman using laptop with cactus" style="max-width: 100%; height: auto;">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.querySelector('.login-form');
+            const signupForm = document.querySelector('.signup-form');
+            const successMessage = document.getElementById('success-message');
+            const showSignupLink = document.getElementById('show-signup');
+            const showLoginLink = document.getElementById('show-login');
+            const goToLoginBtn = document.getElementById('go-to-login');
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+            const termsCheckbox = document.getElementById('terms-checkbox');
+            
+            // Form elements
+            const signupName = document.getElementById('signup-name');
+            const signupEmail = document.getElementById('signup-email');
+            const signupPassword = document.getElementById('signup-password');
+            const signupConfirm = document.getElementById('signup-confirm');
+            const loginEmail = document.getElementById('login-email');
+            const loginPassword = document.getElementById('login-password');
+            
+            // Password strength elements
+            const passwordStrengthMeter = document.querySelector('.password-strength-meter');
+            const passwordStrengthText = document.querySelector('.password-strength-text');
+            
+            // Toggle between login and signup forms
+            showSignupLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                successMessage.style.display = 'none';
+                resetForms();
+            });
+            
+            showLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                successMessage.style.display = 'none';
+                resetForms();
+            });
+            
+            goToLoginBtn.addEventListener('click', function() {
+                successMessage.style.display = 'none';
+                loginForm.style.display = 'block';
+                resetForms();
+            });
+            
+            // Password strength checker
+            signupPassword.addEventListener('input', function() {
+                const password = this.value;
+                const strength = checkPasswordStrength(password);
+                
+                // Update strength meter
+                passwordStrengthMeter.style.width = strength.score * 25 + '%';
+                passwordStrengthMeter.style.backgroundColor = strength.color;
+                passwordStrengthText.textContent = strength.message;
+                passwordStrengthText.style.color = strength.color;
+                
+                // Validate confirm password if it has a value
+                if (signupConfirm.value) {
+                    validateConfirmPassword();
+                }
+                
+                // Enable/disable signup button
+                updateSignupButton();
+            });
+            
+            // Confirm password validation
+            signupConfirm.addEventListener('input', validateConfirmPassword);
+            
+            // Terms checkbox
+            termsCheckbox.addEventListener('change', updateSignupButton);
+            
+            // Input validation for signup form
+            signupName.addEventListener('input', function() {
+                validateInput(this, this.value.trim().length >= 3);
+                updateSignupButton();
+            });
+            
+            signupEmail.addEventListener('input', function() {
+                validateInput(this, validateEmail(this.value));
+                updateSignupButton();
+            });
+            
+            // Input validation for login form
+            loginEmail.addEventListener('input', function() {
+                validateInput(this, validateEmail(this.value));
+            });
+            
+            loginPassword.addEventListener('input', function() {
+                validateInput(this, this.value.length >= 6);
+            });
+            
+            // Form submission (demo functionality)
+            loginBtn.addEventListener('click', function() {
+                const email = loginEmail.value;
+                const password = loginPassword.value;
+                
+                let isValid = true;
+                
+                if (!validateEmail(email)) {
+                    markAsInvalid(loginEmail);
+                    isValid = false;
+                }
+                
+                if (password.length < 6) {
+                    markAsInvalid(loginPassword);
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    alert('Login successful! (This is just a demo)');
+                    window.location.href = "hi.html";
+                }
+            });
+            
+            signupBtn.addEventListener('click', function() {
+                const name = signupName.value;
+                const email = signupEmail.value;
+                const password = signupPassword.value;
+                const confirm = signupConfirm.value;
+                
+                let isValid = true;
+                
+                if (name.trim().length < 3) {
+                    markAsInvalid(signupName);
+                    isValid = false;
+                }
+                
+                if (!validateEmail(email)) {
+                    markAsInvalid(signupEmail);
+                    isValid = false;
+                }
+                
+                if (password.length < 8 || !checkPasswordStrength(password).isStrong) {
+                    markAsInvalid(signupPassword);
+                    isValid = false;
+                }
+                
+                if (password !== confirm) {
+                    markAsInvalid(signupConfirm);
+                    isValid = false;
+                }
+                
+                if (!termsCheckbox.checked) {
+                    alert('Please agree to the Terms of Service and Privacy Policy');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Show success message
+                    signupForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form
+                    resetForms();
+                }
+            });
+            
+            // Helper functions
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            function checkPasswordStrength(password) {
+                // Initialize variables
+                let score = 0;
+                let hasLower = /[a-z]/.test(password);
+                let hasUpper = /[A-Z]/.test(password);
+                let hasNumber = /[0-9]/.test(password);
+                let hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+                
+                // Calculate score
+                if (password.length >= 8) score++;
+                if (password.length >= 12) score++;
+                if (hasLower && hasUpper) score++;
+                if (hasNumber) score++;
+                if (hasSpecial) score++;
+                
+                // Determine strength level
+                let result = {
+                    score: score,
+                    isStrong: false,
+                    message: '',
+                    color: ''
+                };
+                
+                if (score === 0) {
+                    result.message = 'Very Weak';
+                    result.color = '#dc3545';
+                } else if (score === 1) {
+                    result.message = 'Weak';
+                    result.color = '#dc3545';
+                } else if (score === 2) {
+                    result.message = 'Fair';
+                    result.color = '#ffc107';
+                } else if (score === 3) {
+                    result.message = 'Good';
+                    result.color = '#28a745';
+                    result.isStrong = true;
+                } else if (score >= 4) {
+                    result.message = 'Strong';
+                    result.color = '#28a745';
+                    result.isStrong = true;
+                }
+                
+                return result;
+            }
+            
+            function validateConfirmPassword() {
+                const password = signupPassword.value;
+                const confirm = signupConfirm.value;
+                
+                validateInput(signupConfirm, password === confirm && confirm !== '');
+                updateSignupButton();
+            }
+            
+            function validateInput(inputElement, isValid) {
+                const group = inputElement.parentElement;
+                
+                if (isValid) {
+                    group.classList.remove('error');
+                    group.classList.add('success');
+                } else {
+                    group.classList.add('error');
+                    group.classList.remove('success');
+                }
+            }
+            
+            function markAsInvalid(inputElement) {
+                const group = inputElement.parentElement;
+                group.classList.add('error');
+                group.classList.remove('success');
+            }
+            
+            function updateSignupButton() {
+                const nameValid = signupName.value.trim().length >= 3;
+                const emailValid = validateEmail(signupEmail.value);
+                const passwordValid = signupPassword.value.length >= 8;
+                const confirmValid = signupPassword.value === signupConfirm.value && signupConfirm.value !== '';
+                const termsAccepted = termsCheckbox.checked;
+                
+                signupBtn.disabled = !(nameValid && emailValid && passwordValid && confirmValid && termsAccepted);
+            }
+            
+            function resetForms() {
+                // Reset login form
+                loginEmail.value = '';
+                loginPassword.value = '';
+                
+                // Reset signup form
+                signupName.value = '';
+                signupEmail.value = '';
+                signupPassword.value = '';
+                signupConfirm.value = '';
+                termsCheckbox.checked = false;
+                
+                // Reset validation styles
+                document.querySelectorAll('.input-group').forEach(group => {
+                    group.classList.remove('error', 'success');
+                });
+                
+                // Reset password strength
+                passwordStrengthMeter.style.width = '0';
+                passwordStrengthText.textContent = '';
+                
+                // Disable signup button
+                signupBtn.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("../bg.jpeg") center/cover no-repeat;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 0px;
+            color: #010A43;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            color: #010A43;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #5e0552;
+        }
+
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 35px;
+            margin-right: 10px;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f31571;
+        }
+
+        /* Main Content */
+        .container {
+            margin-top: 30px;
+            padding: 40px 20px;
+            padding-top: 0px;
+            min-height: calc(100vh - 160px);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Expense Form Box */
+        .expense-form {
+            background: white;
+            width: 400px;
+            margin: 0;
+            padding: 20px 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .expense-form:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Savings Goal Box */
+        .savings-goal {
+            background: white;
+            width: 400px;
+            margin: 0;
+            padding: 20px 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .savings-goal:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Expense List Box */
+        .expense-list {
+            background: white;
+            width: 400px;
+            margin: 0;
+            padding: 20px 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .expense-list:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Chart Box */
+        .chart-container {
+            background: white;
+            width: 400px;
+            margin: 0;
+            padding: 20px 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .chart-container:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Elements */
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
+            margin: 12px 0 5px;
+            text-align: left;
+            color: #010A43;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: border 0.3s ease-in-out;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border: 2px solid #5e0552;
+        }
+
+        /* Button */
+        button {
+            background: #5e0552;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background: #4a043f;
+            transform: scale(1.05);
+        }
+
+        /* Result Box */
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+            background: #eaf9ea;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(to right, #fd7899, #5e0552);
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        /* Expense List */
+        .expenses {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .expense-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .expense-category {
+            color: #5e0552;
+            font-weight: 600;
+        }
+
+        .expense-amount {
+            color: #010A43;
+            font-weight: bold;
+        }
+
+        .expense-date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            background: #f31571;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .expense-summary {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+            margin-top: 10px;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .expense-form, .savings-goal, .expense-list, .chart-container {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="../logo.png" alt="Logo" class="logo"> 
+            <span class="brand-name">SheFunds</span>
+        </div>
+        <ul>
+            <li><a href="../hi.html">Home</a></li>
+            <li><a href="../courses.html">Financial Courses</a></li>
+            <li><a href="../calci.html">Budgeting & Calculators</a></li>
+            <li><a href="../grants.html">Funding & Grants</a></li>
+            <li><a href="../forum.html">Community Forum</a></li>
+            
+        </ul>
+    </nav>
+
+    <h1>Expense Tracker & Savings Goals</h1>
+    
+    <!-- Main Content Section -->
+    <div class="container">
+        <!-- Expense Form -->
+        <div class="expense-form">
+            <h2>Add New Expense</h2>
+            <label for="expenseAmount">Amount (₹)</label>
+            <input type="number" id="expenseAmount" placeholder="Enter amount" required>
+
+            <label for="expenseCategory">Category</label>
+            <select id="expenseCategory" required>
+                <option value="">Select category</option>
+                <option value="Food">Food</option>
+                <option value="Housing">Housing</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="expenseDate">Date</label>
+            <input type="date" id="expenseDate" required>
+
+            <label for="expenseDescription">Description (Optional)</label>
+            <input type="text" id="expenseDescription" placeholder="Enter description">
+
+            <button onclick="addExpense()">Add Expense</button>
+            <div id="expenseMessage" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Savings Goal -->
+        <div class="savings-goal">
+            <h2>Savings Goal</h2>
+            <label for="goalAmount">Goal Amount (₹)</label>
+            <input type="number" id="goalAmount" placeholder="Enter goal amount" value="10000">
+
+            <label for="savedAmount">Amount Saved (₹)</label>
+            <input type="number" id="savedAmount" placeholder="Enter amount saved" value="2500">
+
+            <button onclick="updateSavingsGoal()">Update Savings Goal</button>
+            
+            <div id="savingsProgress" class="progress-container">
+                <div id="progressBar" class="progress-bar" style="width: 25%;">25%</div>
+            </div>
+            
+            <div id="savingsMessage" class="result">
+                ₹2,500 saved of ₹10,000 goal (25% complete)
+            </div>
+        </div>
+
+        <!-- Expense List -->
+        <div class="expense-list">
+            <h2>Recent Expenses</h2>
+            <div class="expenses" id="expensesList">
+                <!-- Expenses will be added here dynamically -->
+            </div>
+            <div class="expense-summary">
+                <div>Total Expenses:</div>
+                <div id="totalExpenses">₹0</div>
+            </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <h2>Expense Breakdown</h2>
+            <canvas id="expenseChart" width="300" height="300"></canvas>
+            <div id="chartLegend" class="chart-legend">
+                <!-- Legend will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Expense Tracker | SheFunds | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Initialize expense data
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let savingsGoal = localStorage.getItem('savingsGoal') || 10000;
+        let savedAmount = localStorage.getItem('savedAmount') || 2500;
+
+        // Colors for chart
+        const colors = [
+            '#fd7899', '#5e0552', '#010A43', '#8fd9f7', 
+            '#f31571', '#7c2781', '#3e87a8', '#ff9eb4',
+            '#4a043f', '#0a2896', '#66c3ef', '#b90656'
+        ];
+
+        // Load data on page load
+        window.onload = function() {
+            document.getElementById('goalAmount').value = savingsGoal;
+            document.getElementById('savedAmount').value = savedAmount;
+            updateSavingsProgress();
+            renderExpensesList();
+            renderExpenseChart();
+        };
+
+        // Add a new expense
+        function addExpense() {
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const category = document.getElementById('expenseCategory').value;
+            const date = document.getElementById('expenseDate').value;
+            const description = document.getElementById('expenseDescription').value;
+            
+            if (isNaN(amount) || amount <= 0 || !category || !date) {
+                showMessage('expenseMessage', 'Please fill all required fields with valid data.', 'red');
+                return;
+            }
+            
+            const expense = {
+                id: Date.now(),
+                amount: amount,
+                category: category,
+                date: date,
+                description: description
+            };
+            
+            expenses.push(expense);
+            saveExpenses();
+            
+            // Clear form
+            document.getElementById('expenseAmount').value = '';
+            document.getElementById('expenseCategory').value = '';
+            document.getElementById('expenseDate').value = '';
+            document.getElementById('expenseDescription').value = '';
+            
+            showMessage('expenseMessage', 'Expense added successfully!', 'green');
+            renderExpensesList();
+            renderExpenseChart();
+        }
+
+        // Delete an expense
+        function deleteExpense(id) {
+            expenses = expenses.filter(expense => expense.id !== id);
+            saveExpenses();
+            renderExpensesList();
+            renderExpenseChart();
+        }
+
+        // Save expenses to localStorage
+        function saveExpenses() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+
+        // Update savings goal progress
+        function updateSavingsGoal() {
+            const goal = parseFloat(document.getElementById('goalAmount').value);
+            const saved = parseFloat(document.getElementById('savedAmount').value);
+            
+            if (isNaN(goal) || goal <= 0 || isNaN(saved) || saved < 0) {
+                showMessage('savingsMessage', 'Please enter valid amounts.', 'red');
+                return;
+            }
+            
+            savingsGoal = goal;
+            savedAmount = saved;
+            
+            localStorage.setItem('savingsGoal', savingsGoal);
+            localStorage.setItem('savedAmount', savedAmount);
+            
+            updateSavingsProgress();
+        }
+
+        // Update savings progress display
+        function updateSavingsProgress() {
+            const percentage = Math.min(100, Math.floor((savedAmount / savingsGoal) * 100));
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage + '%';
+            
+            document.getElementById('savingsMessage').innerHTML = `
+                ₹${Number(savedAmount).toLocaleString()} saved of ₹${Number(savingsGoal).toLocaleString()} goal 
+                (${percentage}% complete)
+            `;
+        }
+
+        // Render expenses list
+        function renderExpensesList() {
+            const listElement = document.getElementById('expensesList');
+            listElement.innerHTML = '';
+            
+            if (expenses.length === 0) {
+                listElement.innerHTML = '<p>No expenses yet. Add your first expense!</p>';
+                document.getElementById('totalExpenses').textContent = '₹0';
+                return;
+            }
+            
+            // Sort expenses by date (newest first)
+            const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let total = 0;
+            
+            sortedExpenses.forEach(expense => {
+                total += expense.amount;
+                
+                const expenseElement = document.createElement('div');
+                expenseElement.className = 'expense-item';
+                
+                const formattedDate = new Date(expense.date).toLocaleDateString('en-IN');
+                
+                expenseElement.innerHTML = `
+                    <div>
+                        <div class="expense-category">${expense.category}</div>
+                        <div class="expense-date">${formattedDate}</div>
+                        ${expense.description ? `<div>${expense.description}</div>` : ''}
+                    </div>
+                    <div class="expense-amount">
+                        ₹${expense.amount.toLocaleString()}
+                        <button class="delete-btn" onclick="deleteExpense(${expense.id})">×</button>
+                    </div>
+                `;
+                
+                listElement.appendChild(expenseElement);
+            });
+            
+            document.getElementById('totalExpenses').textContent = `₹${total.toLocaleString()}`;
+        }
+
+        // Render expense chart
+        function renderExpenseChart() {
+            const canvas = document.getElementById('expenseChart');
+            const ctx = canvas.getContext('2d');
+            const legendElement = document.getElementById('chartLegend');
+            
+            // Clear previous chart
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            legendElement.innerHTML = '';
+            
+            if (expenses.length === 0) {
+                ctx.font = "16px Poppins";
+                ctx.fillStyle = "#666";
+                ctx.textAlign = "center";
+                ctx.fillText("No expenses to display", canvas.width/2, canvas.height/2);
+                return;
+            }
+            
+            // Group expenses by category
+            const categories = {};
+            let total = 0;
+            
+            expenses.forEach(expense => {
+                if (!categories[expense.category]) {
+                    categories[expense.category] = 0;
+                }
+                categories[expense.category] += expense.amount;
+                total += expense.amount;
+            });
+            
+            // Sort categories by amount (descending)
+            const sortedCategories = Object.entries(categories).sort((a, b) => b[1] - a[1]);
+            
+            // Draw pie chart
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(centerX, centerY) - 10;
+            
+            let startAngle = 0;
+            
+            sortedCategories.forEach((category, index) => {
+                const [name, amount] = category;
+                const sliceAngle = (amount / total) * 2 * Math.PI;
+                
+                // Draw slice
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+                ctx.closePath();
+                
+                const colorIndex = index % colors.length;
+                ctx.fillStyle = colors[colorIndex];
+                ctx.fill();
+                
+                // Add to legend
+                const percentage = Math.round((amount / total) * 100);
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background-color: ${colors[colorIndex]}"></div>
+                    <div>${name}: ₹${amount.toLocaleString()} (${percentage}%)</div>
+                `;
+                legendElement.appendChild(legendItem);
+                
+                startAngle += sliceAngle;
+            });
+        }
+
+        // Show message with auto-hide
+        function showMessage(elementId, message, color = 'green') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = message;
+            element.style.color = color === 'green' ? '#28a745' : '#dc3545';
+            element.style.display = 'block';
+            
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

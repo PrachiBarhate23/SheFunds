@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menstrual Cycle Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: url('assets/background.jpg') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #ecc7fb;
+            color: #0f0e0e;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            width: 98%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: rgb(30, 28, 28);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .navbar ul li a:hover {
+            color: #f2d2f6;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            margin-top: 60px; /* Adjust for fixed navbar */
+            height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(247, 226, 252, 0.2);
+            padding: 20px;
+            height: 100%;
+            position: fixed;
+            overflow-y: auto;
+            transition: 0.3s;
+        }
+        .sidebar h2 {
+            font-size: 18px;
+            color: #a660ba;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #a660ba;
+            padding-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 12px 0;
+            font-size: 25px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 8px;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-size: 20px;
+        }
+        .sidebar ul li a:hover {
+            background: #a660ba;
+            color: white;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+        .tracker-container {
+            background: #c19aca;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 700px;
+        }
+        input {
+            width: 96%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #e3a5f5;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #e3a5f5;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .btn-primary { background: #f2d2f6; color: #171616; }
+        .btn-secondary { background: #a660ba; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div>Menstrual Cycle Tracker</div>
+        <ul>
+            <li><a href="periodhomepage.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Patient Tools</h2>
+            <ul>
+                <li><a href="pregnancy-calculator.html">Scan & Pregnancy Calculator</a></li>
+                <li><a href="menstrual-tracker.html">Menstrual Cycle Tracker</a></li>
+            </ul>
+            <h2>Patient Forms</h2>
+            <ul>
+                <li><a href="registration-form.html">Registration Form</a></li>
+                <li><a href="patient_screening.html">Patient Screening Form</a></li>
+                <li><a href="digital_access.html">Digital Access Request</a></li>
+            </ul>
+            <h2>Appointments</h2>
+            <ul>
+                <li><a href="upload_zone.html">Upload Zone</a></li>
+                <li><a href="appointment_request.html">Appointment Request</a></li>
+                <li><a href="patient_feedback.html">Patient Feedback</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="tracker-container">
+                <h2>Menstrual Cycle Tracker</h2>
+                <p>Track your period, ovulation, and fertile days.</p>
+
+                <label>First day of last period:</label>
+                <input type="date" id="lastPeriodDate">
+                
+                <label>Cycle length:</label>
+                <select id="cycleLength">
+                    <option value="28">28 days</option>
+                    <option value="30">30 days</option>
+                    <option value="32">32 days</option>
+                </select>
+
+                <label>Menstruation duration:</label>
+                <select id="periodDuration">
+                    <option value="5">5 days</option>
+                    <option value="6">6 days</option>
+                    <option value="7">7 days</option>
+                </select>
+
+                <label>Number of months to calculate:</label>
+                <select id="monthsToCalculate">
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                </select>
+
+                <button class="btn-primary" id="calculateCycle">Calculate</button>
+                <button class="btn-secondary" id="resetCycle">Reset</button>
+
+                <div id="result" style="margin-top: 20px; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateCycle').addEventListener('click', function() {
+            const lastPeriod = new Date(document.getElementById('lastPeriodDate').value);
+            const cycleLength = parseInt(document.getElementById('cycleLength').value);
+            const monthsToCalculate = parseInt(document.getElementById('monthsToCalculate').value);
+
+            if (isNaN(lastPeriod.getTime())) {
+                alert('Please enter a valid date.');
+                return;
+            }
+
+            let resultHTML = "<h3>Upcoming Period Dates:</h3>";
+            let ovulationHTML = "<h3>Ovulation Days:</h3>";
+            
+            for (let i = 0; i < monthsToCalculate; i++) {
+                let nextPeriodStart = new Date(lastPeriod);
+                nextPeriodStart.setDate(lastPeriod.getDate() + cycleLength * i);
+                let ovulationDay = new Date(nextPeriodStart);
+                ovulationDay.setDate(ovulationDay.getDate() - 14);
+
+                resultHTML += `• ${nextPeriodStart.toDateString()} <br>`;
+                ovulationHTML += `• ${ovulationDay.toDateString()} <br>`;
+            }
+
+            document.getElementById('result').innerHTML = resultHTML + "<br>" + ovulationHTML;
+        });
+
+        document.getElementById('resetCycle').addEventListener('click', function() {
+            document.getElementById('lastPeriodDate').value = '';
+            document.getElementById('result').innerHTML = '';
+        });
+    </script>
+
+</body>
+</html>

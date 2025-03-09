@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheFunds - Empowering Women in Finance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("../bg.jpeg") center/cover no-repeat;
+
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 20px; /* Thinner navbar */
+            background: white;
+            color: #010A43;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .navbar ul {
+            padding-top: 10px;
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            padding-top: 10px;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+            text-align: end;
+        }
+
+        .navbar ul li a:hover {
+            color: #5e0552;
+        }
+
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 35px; /* Adjust logo height */
+            margin-right: 10px;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f31571;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .calculator-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calculator-card img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .calculator-card h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .calculator-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .calculator-btn {
+            background-color: #5E0552;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .calculator-btn:hover {
+            background-color: #010A43;
+        }
+
+        .footer{
+            background-color: #5E0552;
+            color: #f5f5f5;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        @media (max-width: 992px) {
+            .calculator-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="../logo.png" alt="Logo" class="logo"> 
+            <span class="brand-name">SheFunds</span>
+        </div>
+        <ul>
+            <li><a href="hi.html">Home</a></li>
+                    <li><a href="courses.html">Financial Courses</a></li>
+                    <li><a href="calci.html">Budgeting & Calculators</a></li>
+                    <li><a href="grants.html">Funding & Grants</a></li>
+                    <li><a href="forum.html">Community Forum</a></li>
+            
+        </ul>
+    </nav>
+
+    
+    <div class="container">
+        <h1 class="page-title">Finance Calculator</h1>
+        
+        <div class="calculator-grid">
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIyMCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI4MCIgZmlsbD0iI2VjZjBmMSIgc3Ryb2tlPSIjOTVhNWE2IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIzMCIgeT0iMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2JkYzNjNyIvPjxyZWN0IHg9IjMwIiB5PSI0NSIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjYmRjM2M3Ii8+PHJlY3QgeD0iNDUiIHk9IjQ1IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiNiZGMzYzciLz48cmVjdCB4PSI2MCIgeT0iNDUiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2JkYzNjNyIvPjxyZWN0IHg9IjMwIiB5PSI2MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjYmRjM2M3Ii8+PHJlY3QgeD0iNDUiIHk9IjYwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiNiZGMzYzciLz48cmVjdCB4PSI2MCIgeT0iNjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2JkYzNjNyIvPjxjaXJjbGUgY3g9IjI1IiBjeT0iODAiIHI9IjE1IiBmaWxsPSIjZjM5YzEyIi8+PC9zdmc+" alt="EMI Calculator Icon">
+                <h3>Expense Tracker</h3>
+                <p>Track your expenses , set budgets and keep hold of your finances using our expense tracker</p>
+                <button class="calculator-btn" onclick="redirectToCalculator('./tracker/tracker.html')">Expense Tracker</button>
+            </div>
+            
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMTBMMTAgNDBIMjBWOTBINDBWNjBINjBWOTBIODBWNDBIOTBMNTAgMTBaIiBmaWxsPSIjZTc0YzNjIiBzdHJva2U9IiNjMDM5MmIiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjI1IiB5PSI3MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjM2M5N2QzIi8+PHJlY3QgeD0iNjUiIHk9IjcwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiMzYzk3ZDMiLz48L3N2Zz4=" alt="Home Loan EMI Calculator Icon">
+                <h3>EMI Calculator</h3>
+                <p>Calculate your monthly or tenurely EMI on your amount using our EMI Calculatpr</p>
+                <button class="calculator-btn" onclick="redirectToCalculator('./emi/emi.html')">EMI Calculator</button>
+            </div>
+            
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIxMCIgeT0iMzAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzNjOTdkMyIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIyMCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2VjZjBmMSIgc3Ryb2tlPSIjOTVhNWE2IiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjcwIiByPSIxNSIgZmlsbD0iI2YxYzQwZiIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iNzAiIHI9IjE1IiBmaWxsPSIjZjM5YzEyIi8+PC9zdmc+" alt="Personal Loan EMI Calculator Icon">
+                <h3>Compound Interest Calculator</h3>
+                <p>Calculate the future value of your investment on principal, rate, and tenure with our CI Calculator.</p>
+                <button class="calculator-btn" onclick="redirectToCalculator('./compound/compound.html')">Compound Interest Calculator</button>
+            </div>
+            
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNMTAgNjBDMTAgNDAgMzAgMzAgNTAgMzBDNzAgMzAgOTAgNDAgOTAgNjBWOTBIMTBWNjBaIiBmaWxsPSIjMzQ5OGRiIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iNzAiIHI9IjEwIiBmaWxsPSIjZWNmMGYxIiBzdHJva2U9IiM5NWE1YTYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNzAiIHI9IjEwIiBmaWxsPSIjZWNmMGYxIiBzdHJva2U9IiM5NWE1YTYiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjZjM5YzEyIiBzdHJva2U9IiNlNjdlMjIiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjMwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjZmZmIj5MT0FOPC90ZXh0Pjwvc3ZnPg==" alt="Car Loan EMI Calculator Icon">
+                <h3>Car Loan EMI Calculator</h3>
+                <p>Calculate your car loan EMI with our Car Loan Calculator.</p>
+                <button class="calculator-btn">Expense Tracker</button>
+            </div>
+            
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgcng9IjUiIHJ5PSI1IiBmaWxsPSIjMzQ5OGRiIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjMwIiB5PSIzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZWNmMGYxIi8+PHJlY3QgeD0iMzAiIHk9IjQ1IiB3aWR0aD0iMjAiIGhlaWdodD0iNSIgZmlsbD0iI2VjZjBmMSIvPjxyZWN0IHg9IjIwIiB5PSI3MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjZWNmMGYxIiBzdHJva2U9IiM5NWE1YTYiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==" alt="Credit Card Eligibility Calculator Icon">
+                <h3>FD Calculator</h3>
+                <p>Calculate the maturity amount for your deposit based on an interest rate for a particular tenure with the help of our FD Calculator.</p>
+                <button class="calculator-btn" onclick="redirectToCalculator('./incomeTax/fd.html')">FD Calculator</button>
+            </div>
+            
+            <div class="calculator-card">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMTBMMTAgNDBIMjBWOTBINDBWNjBINjBWOTBIODBWNDBIOTBMNTAgMTBaIiBmaWxsPSIjZTc0YzNjIiBzdHJva2U9IiNjMDM5MmIiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjI1IiB5PSI3MCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjM2M5N2QzIi8+PHJlY3QgeD0iNjUiIHk9IjcwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiMzYzk3ZDMiLz48cmVjdCB4PSI2MCIgeT0iMjAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2VjZjBmMSIgc3Ryb2tlPSIjOTVhNWE2IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=" alt="Home Loan Eligibility Calculator Icon">
+                <h3>Home Loan Eligibility Calculator</h3>
+                <p>Check your home loan eligibility with our Home Loan Eligibility Calculator.</p>
+                <button class="calculator-btn">Home Loan Eligibility Calculator</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            Back to top
+        </div>
+    </footer>
+
+    <script>
+        function redirectToCalculator(page) {
+        window.location.href = page; // Redirects to the specific calculator page
+    }
+    </script>
+</body>
+</html>

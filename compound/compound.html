@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <link rel="stylesheet" href="compound.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="../logo.png" alt="Logo" class="logo"> 
+            <span class="brand-name">SheFunds</span>
+        </div>
+        <ul>
+            <li><a href="../hi.html">Home</a></li>
+            <li><a href="../courses.html">Financial Courses</a></li>
+            <li><a href="../calci.html">Budgeting & Calculators</a></li>
+            <li><a href="../grants.html">Funding & Grants</a></li>
+            <li><a href="../forum.html">Community Forum</a></li>
+            
+            
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h2>Compound Interest Calculator</h2>
+        <div class="calculator-box">
+            <label>Principal Amount (₹)</label>
+            <input type="number" id="principal" placeholder="Enter principal amount">
+
+            <label>Annual Interest Rate (%)</label>
+            <input type="number" id="rate" placeholder="Enter interest rate">
+
+            <label>Time (Years)</label>
+            <input type="number" id="time" placeholder="Enter number of years">
+
+            <label>Compounded (per year)</label>
+            <select id="frequency">
+                <option value="1">Annually</option>
+                <option value="2">Semi-Annually</option>
+                <option value="4">Quarterly</option>
+                <option value="12">Monthly</option>
+            </select>
+
+            <button onclick="calculateCI()">Calculate</button>
+
+            <h3>Maturity Amount: ₹ <span id="result">0.00</span></h3>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 CI Calculator | All rights reserved.</p>
+    </footer>
+
+    <script src="compound.js"></script>
+</body>
+</html>

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheFunds - Grants & Funding Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #a4c5e4;
+            --light-gray: #f8f7f8;
+            --pink: #f31571;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* background-color: var(--light-gray); */
+            color: #333;
+            /* background: url("bg.jpg") center/cover no-repeat; */
+            background-image: url('bg.jpeg'); /* Path to your image */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo h1 {
+            color: var(--pink);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover, 
+        nav ul li a.active {
+            color: var(--pink);
+        }
+
+        .nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f31571;
+            transition: width 0.3s;
+        }
+        
+        .nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--white);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar h2 {
+            padding: 0 20px 15px;
+            color: var(--pink);
+            font-size: 18px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-menu li:hover {
+            background-color: var(--light-gray);
+        }
+
+        .sidebar-menu li.active {
+            background-color: var(--blue);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* Search and Filter Section */
+        .search-filter {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #8ab3d9;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        /* Grant Listings */
+        .grants-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grant-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .grant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .grant-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .grant-card .amount {
+            color: var(--pink);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .grant-card .deadline {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .grant-card .description {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .grant-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .apply-btn {
+            background-color: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .apply-btn:hover {
+            background-color: #8ab3d9;
+        }
+
+        .save-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .save-btn:hover, .save-btn.saved {
+            color: var(--pink);
+        }
+
+        .category-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--blue);
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            nav ul {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            nav ul li {
+                width: 100%;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 15px 20px;
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                transform: translateX(-100%);
+                position: fixed;
+                top: 80px;
+                left: 0;
+                height: calc(100vh - 80px);
+                z-index: 90;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .sidebar-toggle {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: var(--pink);
+                color: white;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                z-index: 100;
+                border: none;
+                cursor: pointer;
+            }
+            
+            .grants-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="SheFunds Logo">
+            <h1>SheFunds</h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="hi.html">Home</a></li>
+                <li><a href="courses.html">Financial Courses</a></li>
+                <li><a href="calci.html">Budgeting & Calculators</a></li>
+                <li><a href="grants.html">Funding & Grants</a></li>
+                <li><a href="forum.html">Community Forum</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <h2>Funding Categories</h2>
+            <ul class="sidebar-menu">
+                <li class="active" data-category="grants">Grants</li>
+                <li data-category="loans">Loans</li>
+                <li data-category="funding">Funding Opportunities</li>
+            </ul>
+        </aside>
+
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-filter"></i>
+        </button>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="page-title">Grants & Funding Database for Women in India</h1>
+
+            <!-- Search and Filter Section -->
+            <div class="search-filter">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search for grants, loans, or funding opportunities...">
+                    <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="amount-filter">Amount Range</label>
+                        <select id="amount-filter">
+                            <option value="">All Amounts</option>
+                            <option value="0-100000">Up to ₹1 Lakh</option>
+                            <option value="100000-500000">₹1 Lakh - ₹5 Lakhs</option>
+                            <option value="500000-1000000">₹5 Lakhs - ₹10 Lakhs</option>
+                            <option value="1000000+">Above ₹10 Lakhs</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="category-filter">Category</label>
+                        <select id="category-filter">
+                            <option value="">All Categories</option>
+                            <option value="startup">Startup</option>
+                            <option value="education">Education</option>
+                            <option value="technology">Technology</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="arts">Arts & Culture</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="region-filter">Region</label>
+                        <select id="region-filter">
+                            <option value="">All India</option>
+                            <option value="north">North India</option>
+                            <option value="south">South India</option>
+                            <option value="east">East India</option>
+                            <option value="west">West India</option>
+                            <option value="central">Central India</option>
+                            <option value="northeast">Northeast India</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grant Listings -->
+            <div class="grants-container" id="grants-container">
+                <!-- Grant cards will be dynamically inserted here -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample data for grants, loans, and funding opportunities
+        const grantsData = [
+            {
+                id: 1,
+                name: "NITI Aayog Women Entrepreneurship Platform Grant",
+                amount: "₹5,00,000 - ₹10,00,000",
+                deadline: "December 31, 2023",
+                description: "The Women Entrepreneurship Platform (WEP) is an initiative of NITI Aayog to promote and support aspiring women entrepreneurs across India.",
+                category: "startup",
+                region: "all",
+                type: "grants",
+                link: "https://wep.gov.in/"
+            },
+            {
+                id: 2,
+                name: "SIDBI Mahila Udyam Nidhi Scheme",
+                amount: "Up to ₹10,00,000",
+                deadline: "Ongoing",
+                description: "This scheme provides financial assistance to women entrepreneurs for setting up new projects in the small scale sector.",
+                category: "startup",
+                region: "all",
+                type: "grants",
+                link: "https://www.sidbi.in/"
+            },
+            {
+                id: 3,
+                name: "Annapurna Scheme for Women Entrepreneurs",
+                amount: "₹50,000 - ₹5,00,000",
+                deadline: "Ongoing",
+                description: "This scheme provides loans to women entrepreneurs in food catering industry to meet their working capital and investment needs.",
+                category: "food",
+                region: "all",
+                type: "grants",
+                link: "https://www.bajajfinserv.in/woman-entrepreneur-scheme"
+            },
+            {
+                id: 4,
+                name: "Bharatiya Mahila Bank Business Loan",
+                amount: "₹1,00,000 - ₹20,00,000",
+                deadline: "Ongoing",
+                description: "Loans for women entrepreneurs to establish or expand their business ventures across various sectors.",
+                category: "startup",
+                region: "all",
+                type: "grants",
+                link: "https://www.indiafilings.com/learn/bhartiya-mahila-bank-business-loan/"
+            },
+            {
+                id: 5,
+                name: "Dena Shakti Scheme",
+                amount: "Up to ₹20,00,000",
+                deadline: "Ongoing",
+                description: "This scheme provides financial assistance to women entrepreneurs in agriculture, manufacturing, retail, and other sectors.",
+                category: "agriculture",
+                region: "all",
+                type: "grants",
+                link: "https://www.indiafilings.com/learn/dena-shakti-scheme/"
+            },
+            {
+                id: 6,
+                name: "Mudra Yojana for Women",
+                amount: "₹50,000 - ₹10,00,000",
+                deadline: "Ongoing",
+                description: "The Pradhan Mantri Mudra Yojana provides loans to women entrepreneurs for non-farm income generating activities.",
+                category: "startup",
+                region: "all",
+                type: "grants",
+                link: "https://www.mudra.org.in/mudra-kahaniyaan-v2/women.html?gclid=CjwKCAiAirb_BRBNEiwALHlnD6AEN3aP9wOlfIcLdG6pc2GRWnorlubunGGXL5iqumfMKlsVdg3xbxoCyecQAvD_BwE/page/2"
+            }
+        ];
+
+        const loansData = [
+            {
+                id: 7,
+                name: "Stree Shakti Package for Women Entrepreneurs",
+                amount: "Up to ₹25,00,000",
+                deadline: "Ongoing",
+                description: "SBI's Stree Shakti Package is a business loan for women entrepreneurs who have majority ownership in a business.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://www.weact.in/financial-guide/bank-loans/stree-shakti-package"
+            },
+            {
+                id: 8,
+                name: "Cent Kalyani Scheme",
+                amount: "Up to ₹1,00,00,000",
+                deadline: "Ongoing",
+                description: "Central Bank of India's scheme for women entrepreneurs to start new ventures or expand existing businesses.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://www.tatacapital.com/blog/loan-for-business/all-you-need-to-know-about-cent-kalyani-scheme/"
+            },
+            {
+                id: 9,
+                name: "Mahila Udyam Nidhi Scheme",
+                amount: "Up to ₹10,00,000",
+                deadline: "Ongoing",
+                description: "This scheme promotes women entrepreneurship by providing financial assistance for setting up new small-scale ventures.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://www.paisabazaar.com/business-loan/mahila-udyam-nidhi-scheme/"
+            },
+            {
+                id: 10,
+                name: "Stand-Up India Scheme for Women",
+                amount: "₹10,00,000 - ₹1,00,00,000",
+                deadline: "Ongoing",
+                description: "This scheme facilitates bank loans to women entrepreneurs for setting up greenfield enterprises.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://www.standupmitra.in/home/suischemes"
+            },
+            {
+                id: 11,
+                name: "HDFC Women's Business Loan",
+                amount: "₹2,00,000 - ₹50,00,000",
+                deadline: "Ongoing",
+                description: "HDFC Bank offers business loans to women entrepreneurs with flexible repayment options and competitive interest rates.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://www.hdfcbank.com/personal/borrow/popular-loans/business-loan-for-women"
+            },
+            {
+                id: 12,
+                name: "TREAD (Trade Related Entrepreneurship Assistance and Development) Scheme",
+                amount: "Up to ₹1,00,00,000",
+                deadline: "Ongoing",
+                description: "This scheme provides financial assistance to women for entrepreneurship development through NGOs.",
+                category: "startup",
+                region: "all",
+                type: "loans",
+                link: "https://msme.gov.in/sites/default/files/TREAD%20Guidelines.pdf"
+            }
+        ];
+
+        const fundingData = [
+            {
+                id: 13,
+                name: "She Capital Fund",
+                amount: "₹50,00,000 - ₹5,00,00,000",
+                deadline: "Ongoing",
+                description: "She Capital is an early-stage fund focused on investing in women-led businesses with high growth potential.",
+                category: "technology",
+                region: "all",
+                type: "funding",
+                link: "https://www.shecapital.vc/"
+            },
+            {
+                id: 14,
+                name: "SAHA Fund",
+                amount: "₹1,00,00,000 - ₹5,00,00,000",
+                deadline: "Ongoing",
+                description: "SAHA Fund is a venture capital fund that invests in women-led technology startups in India.",
+                category: "technology",
+                region: "all",
+                type: "funding",
+                link: "https://www.sahafund.com/"
+            },
+            {
+                id: 15,
+                name: "WEE Foundation Funding",
+                amount: "₹10,00,000 - ₹50,00,000",
+                deadline: "March 31, 2024",
+                description: "The Women Entrepreneurship and Empowerment Foundation provides funding to women entrepreneurs in various sectors.",
+                category: "startup",
+                region: "all",
+                type: "funding",
+                link: "https://weefoundation.org/about#:~:text=At%20Wee%20foundation%2C%20it%20is,Mentors%20from%205%20continents."
+            },
+            {
+                id: 16,
+                name: "Sequoia Spark Fellowship",
+                amount: "₹15,00,000",
+                deadline: "January 15, 2024",
+                description: "Sequoia Spark is a fellowship program for women founders in India, providing mentorship and funding.",
+                category: "technology",
+                region: "all",
+                type: "funding",
+                link: "https://devinfo.in/sequoia-spark-fellowship/"
+            },
+            {
+                id: 17,
+                name: "Villgro Women Ahead Program",
+                amount: "₹25,00,000 - ₹65,00,000",
+                deadline: "Ongoing",
+                description: "Villgro's Women Ahead program provides funding and incubation support to women entrepreneurs in social enterprises.",
+                category: "social",
+                region: "all",
+                type: "funding",
+                link: "https://villgro.org/programs/empower-her-journey/"
+            },
+            {
+                id: 18,
+                name: "WE Hub Incubation Program",
+                amount: "Up to ₹20,00,000",
+                deadline: "Quarterly Applications",
+                description: "WE Hub is India's first state-led incubator for women entrepreneurs, providing funding and support services.",
+                category: "startup",
+                region: "south",
+                type: "funding",
+                link: "https://wehub.telangana.gov.in/"
+            }
+        ];
+
+        // DOM Elements
+        const grantsContainer = document.getElementById('grants-container');
+        const sidebarItems = document.querySelectorAll('.sidebar-menu li');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const amountFilter = document.getElementById('amount-filter');
+        const categoryFilter = document.getElementById('category-filter');
+        const regionFilter = document.getElementById('region-filter');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        // Current active category
+        let activeCategory = 'grants';
+        let savedGrants = JSON.parse(localStorage.getItem('savedGrants')) || [];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGrants(grantsData);
+            updateSavedButtons();
+        });
+
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            this.innerHTML = mainNav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Toggle sidebar on mobile
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        // Sidebar category selection
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active class
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update active category
+                activeCategory = this.dataset.category;
+                
+                // Render appropriate data
+                if (activeCategory === 'grants') {
+                    renderGrants(grantsData);
+                } else if (activeCategory === 'loans') {
+                    renderGrants(loansData);
+                } else if (activeCategory === 'funding') {
+                    renderGrants(fundingData);
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Update saved buttons
+                updateSavedButtons();
+            });
+        });
+
+        // Search functionality
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Filter change events
+        amountFilter.addEventListener('change', performSearch);
+        categoryFilter.addEventListener('change', performSearch);
+        regionFilter.addEventListener('change', performSearch);
+
+        // Perform search and filtering
+        function performSearch() {
+            let dataToSearch;
+            
+            if (activeCategory === 'grants') {
+                dataToSearch = grantsData;
+            } else if (activeCategory === 'loans') {
+                dataToSearch = loansData;
+            } else if (activeCategory === 'funding') {
+                dataToSearch = fundingData;
+            }
+            
+            const searchTerm = searchInput.value.toLowerCase();
+            const amountRange = amountFilter.value;
+            const category = categoryFilter.value;
+            const region = regionFilter.value;
+            
+            // Filter the data
+            const filteredData = dataToSearch.filter(item => {
+                // Search term filter
+                const matchesSearch = searchTerm === '' || 
+                    item.name.toLowerCase().includes(searchTerm) || 
+                    item.description.toLowerCase().includes(searchTerm);
+                
+                // Category filter
+                const matchesCategory = category === '' || item.category === category;
+                
+                // Region filter
+                const matchesRegion = region === '' || item.region === region || item.region === 'all';
+                
+                // Amount filter (simplified for demo)
+                let matchesAmount = true;
+                if (amountRange !== '') {
+                    // This is a simplified check - in a real app, you'd parse the actual amounts
+                    if (amountRange === '0-100000' && !item.amount.includes('Up to') && !item.amount.includes('1 Lakh')) {
+                        matchesAmount = false;
+                    } else if (amountRange === '100000-500000' && !item.amount.includes('Lakh')) {
+                        matchesAmount = false;
+                    } else if (amountRange === '500000-1000000' && !item.amount.includes('5 Lakh') && !item.amount.includes('10 Lakh')) {
+                        matchesAmount = false;
+                    } else if (amountRange === '1000000+' && !item.amount.includes('10,00,000') && !item.amount.includes('Crore')) {
+                        matchesAmount = false;
+                    }
+                }
+                
+                return matchesSearch && matchesCategory && matchesRegion && matchesAmount;
+            });
+            
+            renderGrants(filteredData);
+            updateSavedButtons();
+        }
+
+        // Render grants to the container
+        function renderGrants(data) {
+            if (data.length === 0) {
+                grantsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 48px; color: #ddd; margin-bottom: 15px;"></i>
+                        <h3>No results found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grantsContainer.innerHTML = '';
+            
+            data.forEach(grant => {
+                const card = document.createElement('div');
+                card.className = 'grant-card';
+                card.innerHTML = `
+                    <span class="category-tag">${grant.category.charAt(0).toUpperCase() + grant.category.slice(1)}</span>
+                    <h3>${grant.name}</h3>
+                    <div class="amount">${grant.amount}</div>
+                    <div class="deadline"><i class="far fa-calendar-alt"></i> Deadline: ${grant.deadline}</div>
+                    <div class="description">${grant.description}</div>
+                    <div class="card-footer">
+                        <a href="${grant.link}" class="apply-btn" target="_blank">Apply Now</a>
+                        <button class="save-btn" data-id="${grant.id}">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                `;
+                grantsContainer.appendChild(card);
+            });
+            
+            // Add event listeners to save buttons
+            document.querySelectorAll('.save-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const grantId = parseInt(this.dataset.id);
+                    toggleSaveGrant(grantId, this);
+                });
+            });
+        }
+
+        // Toggle save/unsave grant
+        function toggleSaveGrant(grantId, button) {
+            const index = savedGrants.indexOf(grantId);
+            
+            if (index === -1) {
+                // Save grant
+                savedGrants.push(grantId);
+                button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                button.classList.add('saved');
+            } else {
+                // Unsave grant
+                savedGrants.splice(index, 1);
+                button.innerHTML = '<i class="far fa-bookmark"></i>';
+                button.classList.remove('saved');
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('savedGrants', JSON.stringify(savedGrants));
+        }
+
+        // Update saved buttons based on localStorage
+        function updateSavedButtons() {
+            document.querySelectorAll('.save-btn').forEach(btn => {
+                const grantId = parseInt(btn.dataset.id);
+                if (savedGrants.includes(grantId)) {
+                    btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    btn.classList.add('saved');
+                } else {
+                    btn.innerHTML = '<i class="far fa-bookmark"></i>';
+                    btn.classList.remove('saved');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiserCycle - Track Your Cycle, Understand Your Body</title>
+    <link rel="stylesheet" href="periodhomepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="WiserCycle Logo" class="logo">
+            <h1>WiserCycle</h1>
+        </div>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li>
+                    <a href="#">SERVICES ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Service 1</a></li>
+                        <li><a href="#">Service 2</a></li>
+                        <li><a href="#">Service 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </nav>
+        <button id="loginBtn" class="login-btn">Login</button>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Patient Tools</h3>
+                <ul>
+                    <li><i class="fas fa-angle-right"></i> 
+                        <a href="pregnancy-calculator.html" id="pregnancyCalculator">Scan & Pregnancy Calculator</a>
+                    </li>
+                    <li><i class="fas fa-angle-right"></i> 
+                        <a href="menstrual-tracker.html">Menstrual Cycle Tracker</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Patient Forms</h3>
+                <ul>
+                    <li><i class="fas fa-angle-right"></i> 
+                        <a href="registration-form.html">Registration Form</a>
+                    </li>
+                    <li><i class="fas fa-angle-right"></i> <a href="#">Patient Screening Form</a></li>
+                    <li><i class="fas fa-angle-right"></i> <a href="#">Digital Access Request</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Appointments</h3>
+                <ul>
+                    <li><i class="fas fa-angle-right"></i> <a href="#">Upload Zone</a></li>
+                    <li><i class="fas fa-angle-right"></i> <a href="#">Appointment Request</a></li>
+                    <li><i class="fas fa-angle-right"></i> <a href="#">Patient Feedback</a></li>
+                </ul>
+            </div>
+
+            <div class="ultrasound-care">
+                <img src="assets/logo.png" alt="Ultrasound Care Logo">
+                <p>Women's diagnostic imaging and counselling services in a relaxed, caring environment.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Track Your Cycle, Understand Your Body</h2>
+                    <p>WiserCycle helps you monitor your menstrual health with personalized insights and predictions.</p>
+                    <div class="hero-buttons">
+                        <button id="getStartedBtn" class="btn primary-btn">Get Started</button>
+                        <button class="btn secondary-btn">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/bar-graph.png" alt="Menstrual cycle graph">
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Cycle Tracking</h3>
+                    <p>Log and predict your menstrual cycles with accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Health Insights</h3>
+                    <p>Understand your body's patterns and symptoms.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy First</h3>
+                    <p>Your data is completely secure and private.</p>
+                </div>
+            </section>
+
+            <section class="why-choose">
+                <h3>Why Choose WiserCycle</h3>
+                <div class="why-choose-points">
+                    <div class="why-point">
+                        <h4>Predictions you can plan around</h4>
+                        <p>Know your cycle with accuracy</p>
+                    </div>
+                    <div class="why-point">
+                        <h4>Your symptoms are remembered</h4>
+                        <p>Personalized tracking and insights</p>
+                    </div>
+                    <div class="why-point">
+                        <h4>Meet our medical team</h4>
+                        <p>Expert support when you need it</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© Copyright 2025 Ultrasound Care | <a href="#">Privacy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Open Login Page in Fullscreen
+        document.getElementById('getStartedBtn').addEventListener('click', function() {
+            window.open('periodloginpage.html', '_blank', 'fullscreen=yes');
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.open('periodloginpage.html', '_blank', 'fullscreen=yes');
+        });
+
+        // Redirect to Pregnancy Calculator on Click
+        document.getElementById('pregnancyCalculator').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = 'pregnancy-calculator.html';
+        });
+    </script>
+
+    <script src="periodhomepage.js"></script>
+</body>
+</html>

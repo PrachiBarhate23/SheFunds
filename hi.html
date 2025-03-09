@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheFunds - Empowering Women in Finance</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, 
+            #a4c5e4,   /* --primary-dark */
+            #f8f7f8,   /* --secondary */
+            #fd7899,   /* --accent */
+            #ffffff    /* --primary-light */
+        );
+        background-size: 400% 400%;
+        animation: gradientBG 10s ease infinite;
+        margin: 0;
+        padding: 0;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display:flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f31571;
+            margin-right: 150px;
+        }
+
+        .logo-img{
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #f31571;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f31571;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .login-btn {
+            background-color: #f31571;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-btn:hover {
+            background-color: #d01360;
+        }
+        
+        /* Carousel Styles */
+        .carousel-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 400px;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: #f31571;
+        }
+        
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .carousel-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .prev {
+            left: 20px;
+        }
+        
+        .next {
+            right: 20px;
+        }
+        
+        /* Success Stories Section */
+        .success-stories {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f31571;
+            font-size: 32px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #f31571;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .stories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .story-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .story-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        .story-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f31571;
+            margin-bottom: 5px;
+        }
+        
+        .story-role {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .story-text {
+            line-height: 1.6;
+        }
+        
+        .women-finance-info {
+            background-color: #f0e6f5;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #f31571;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: #f31571;
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f31571;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 14px;
+        }
+        
+        .newsletter-button {
+            background-color: #f31571;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-button:hover {
+            background-color: #663b80;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #555;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .carousel-container {
+                margin: 30px auto;
+            }
+            
+            .carousel-slide {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <img src="logo.png" alt="SheFunds Logo" class="logo-img">
+                SheFunds
+            </div>
+            <ul class="nav-links">
+                <li><a href="hi.html">Home</a></li>
+                <li><a href="courses.html">Financial Courses</a></li>
+                <li><a href="calci.html">Budgeting & Calculators</a></li>
+                <li><a href="grants.html">Funding & Grants</a></li>
+                <li><a href="forum.html">Community Forum</a></li>
+            </ul>
+            <button class="mobile-nav-toggle">☰</button>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+        </div>
+    </nav>
+    
+    
+    <!-- Carousel Section -->
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <div class="carousel-slide">
+                <img src="pinku.jpg" alt="Women entrepreneurs networking">
+            </div>
+            <div class="carousel-slide">
+                <img src="happy.jpg" alt="Financial planning workshop">
+            </div>
+            <div class="carousel-slide">
+                <img src="money.jpg" alt="Women in business meeting">
+            </div>
+            <div class="carousel-slide">
+                <img src="rural - Copy.jpg" alt="Woman entrepreneur in her shop">
+            </div>
+            <div class="carousel-slide">
+                <img src="study.jpg" alt="Financial growth chart">
+            </div>
+        </div>
+        
+        <div class="carousel-indicator">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+        
+        <button class="carousel-button prev">‹</button>
+        <button class="carousel-button next">›</button>
+    </div>
+    
+    <!-- Success Stories Section -->
+    <section class="success-stories">
+        <h2 class="section-title">Real Life Inspirations</h2>
+        
+        <div class="stories-container">
+            <div class="story-card">
+                <img src="ghazal.jpg" alt="Ghazal Alagh" class="story-image">
+                <h3 class="story-name">Ghazal Alagh</h3>
+                <p class="story-role">Founder, Mama Earth</p>
+                <p class="story-text">She co-founded a toxin-free makeup and skincare brand that revolutionized the Indian beauty industry. Her journey from a mother seeking the best for her child to a leading entrepreneur showcases her vision, resilience, and business acumen. Through her brand, she empowers consumers with safer beauty choices while inspiring countless women to chase their dreams.</p>
+            </div>
+            
+            <div class="story-card">
+                <img src="upa.png" alt="Upasana Taku" class="story-image">
+                <h3 class="story-name">Upasana Taku</h3>
+                <p class="story-role">Co-founder of MobiKwik</p>
+                <p class="story-text">Co-founder of MobiKwik which revolutionized digital payments in India, her relentless drive and innovative mindset have played a key role in making financial transactions seamless and accessible for millions. As one of the leading women in fintech, she has shattered stereotypes and inspired countless aspiring entrepreneurs. </p>
+            </div>
+            
+            <div class="story-card">
+                <img src="Falguni-Nayar_1-1-scaled.jpg" alt="Falguni Nayar" class="story-image">
+                <h3 class="story-name">Falguni Nayar</h3>
+                <p class="story-role">Founder, Nykaa</p>
+                <p class="story-text">Founder of Nykaa, she transformed India's beauty and fashion landscape. Her vision and perseverance turned a startup into a billion-dollar empire, empowering countless women with beauty and self-care choices. As one of India's richest self-made women, she shattered glass ceilings and redefined success.</p>
+            </div>
+        </div>
+        
+        <div class="women-finance-info">
+            <h2>Women in Finance: Breaking Barriers</h2>
+            <p>Despite significant progress in recent decades, women continue to face unique challenges in the financial sector. At SheFunds, we're dedicated to closing the gender gap in finance through education, resources, and community support.</p>
+            
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-number">63%</div>
+                    <div class="stat-label">of women report not having access to the same financial opportunities as men</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">2.3%</div>
+                    <div class="stat-label">of venture capital funding goes to women-led startups</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">increase in business success when women have proper financial education</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><a href="aboutus.html" style="text-decoration: none; color: inherit;">About SheFunds</a></h3>
+                <p>SheFunds is dedicated to empowering women through financial education, resources, and community support. Our mission is to close the gender gap in finance and entrepreneurship.</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="hi.html">Home</a></li>
+                    <li><a href="courses.html">Financial Courses</a></li>
+                    <li><a href="calci.html">Budgeting & Calculators</a></li>
+                    <li><a href="grants.html">Funding & Grants</a></li>
+                    <li><a href="forum.html">Community Forum</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3><a href="contactus.html" style="text-decoration: none; color: inherit;">Contact Us</a></h3>
+                <ul class="footer-links">
+                    <li>Email: <a href="mailto:info@shefunds.org">info@shefunds.org</a></li>
+                    <li>Phone: <a href="tel:+15551234567">(555) 123-4567</a></li>
+                    <li>Address: Azad Nagar, Andheri(W)</li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Subscribe to Our Newsletter</h3>
+                <p>Stay updated with our latest resources, events, and success stories.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="copyright">
+            <p>&copy; 2025 SheFunds. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Carousel Functionality
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.next');
+        const prevButton = document.querySelector('.prev');
+        const dotsNav = document.querySelector('.carousel-indicator');
+        const dots = Array.from(dotsNav.children);
+        
+        // Set the current slide
+        let currentIndex = 0;
+        
+        const updateCarousel = () => {
+            // Update the transform to show the current slide
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update the active dot
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        };
+        
+        // Click on right, move slides right
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel();
+        });
+        
+        // Click on left, move slides left
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+        
+        // Click on dot, move to that slide
+        dotsNav.addEventListener('click', (e) => {
+            const targetDot = e.target.closest('div.indicator');
+            
+            if (!targetDot) return;
+            
+            const targetIndex = dots.findIndex(dot => dot === targetDot);
+            currentIndex = targetIndex;
+            updateCarousel();
+        });
+        
+        // Auto-advance carousel
+        let carouselInterval = setInterval(() => {
+            nextButton.click();
+        }, 5000);
+        
+        // Pause auto-advance on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                nextButton.click();
+            }, 5000);
+        });
+        
+        // Initialize the carousel
+        updateCarousel();
+    </script>
+</body>
+</html>

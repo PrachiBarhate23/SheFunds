@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Q&A Forum</title>
+    <style>
+        body {
+            padding-top:0px;
+            background: url("background.jpg") center/cover no-repeat;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            
+    padding-top: 80px; /* Adjust based on header height */
+
+
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            
+    margin-top: 80px; /* Adjust based on header height */
+
+        }
+
+        .heading {
+    background-color: #f58db8;
+    color: white; /* Ensures text is visible */
+    text-align: center; /* Centers the text */
+    padding: 5px; /* Adds some spacing */
+    font-size: 20px; /* Adjusts the font size */
+    font-weight: bold; /* Makes the text bold */
+    border-radius: 5px; /* Gives rounded corners */
+    margin: 10px auto; /* Centers it with some space around */
+    width: 100%; /* Adjusts width for better layout */
+}
+
+header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 5%;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Changed from sticky to fixed */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures full width */
+    height: 40px; /* Adjust as needed */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo h1 {
+            color: var(--pink);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+        
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin-right: 100px;
+            
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover, 
+        nav ul li a.active {
+            color: var(--pink);
+        }
+
+        .nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f31571;
+            transition: width 0.3s;
+        }
+        
+        .nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .header {
+            background: #333;
+            color: #fff;
+            padding: 0px;
+            text-align: center;
+        }
+        .forum {
+            background: #fff;
+            padding: 20px;
+            margin-top: 80px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(234, 102, 153, 0.1);
+        }
+        .question {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .question h3 {
+            margin: 0;
+            color: #333;
+        }
+        .answer {
+            margin-left: 20px;
+            color: #666;
+        }
+        .btn {
+            background: #5cb85c;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+
+
+
+        footer {
+            background-color: #1a1a1a;
+            padding: 0;
+            color: #fff;
+
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+            margin-top: 0px;
+            text-align:start;
+        }
+        
+        .footer-column {
+            margin-top: 0;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #9b5de5;
+        }
+        
+        .footer-column p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #9b5de5;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 10px;
+        }
+        
+        .footer-newsletter .form-control {
+            margin-bottom: 10px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .captcha-container {
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-section {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-banner {
+                padding-left: 20px;
+                text-align: center;
+                height: 200px;
+            }
+            
+            .about-section {
+                padding: 30px 20px;
+            }
+            
+            .three-column {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .column {
+                margin-bottom: 30px;
+            }
+        }
+    
+        
+        .forum {
+    background: #fff;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(233, 54, 132, 0.15);
+}
+
+.question {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.question:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(184, 226, 245, 0.1);
+}
+
+.question h3 {
+    cursor: pointer;
+    background: linear-gradient(135deg, #a9e7f8 0%, #ef6cae 100%);
+    color: rgb(21, 6, 6);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.question h3:hover {
+    background: linear-gradient(135deg, #f76097 0%, #95e1ff 100%);
+}
+
+.question h3::after {
+    content: "▼";
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.question h3.active::after {
+    content: "▲";
+}
+
+.answer {
+    background-color: #f9f4f9;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+    border-left: 3px solid #369ef9;
+    line-height: 1.6;
+    color: #333;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.answer p {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.answer ul, .answer ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+
+.answer li {
+    margin-bottom: 8px;
+}
+
+.answer strong {
+    color: #288094;
+    font-weight: 600;
+}
+
+/* Add Question Form Styling */
+.add-question {
+    margin-top: 30px;
+    background-color: #f9f4f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(238, 161, 233, 0.15);
+}
+
+.add-question h3 {
+    color: #9e589d;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.add-question input, 
+.add-question textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #e0d0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+.add-question input:focus, 
+.add-question textarea:focus {
+    border-color: #9e589d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(158, 88, 157, 0.1);
+}
+
+.add-question textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn {
+    background: linear-gradient(135deg, #9e589d 0%, #ae65ad 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #ae65ad 0%, #c677c5 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(156, 88, 157, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .forum {
+        padding: 20px;
+    }
+    
+    .question h3 {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+    
+    .answer {
+        padding: 15px;
+    }
+    
+    .add-question {
+        padding: 20px;
+    }
+}
+</style>
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="SheFunds Logo">
+            <span class="text">SheFunds</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="hi.html">Home</a></li>
+                    <li><a href="courses.html">Financial Courses</a></li>
+                    <li><a href="calci.html">Budgeting & Calculators</a></li>
+                    <li><a href="grants.html">Funding & Grants</a></li>
+                    <li><a href="forum.html">Community Forum</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="heading">
+        <h1>Community Q&A Forum</h1>
+    </div>
+    
+    <div class="container">
+        <div class="forum" id="forum">
+            <!-- Question 1 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">How do I create a personalized financial plan? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Creating a personalized financial plan involves several steps:</p>
+                    <ul>
+                        <li><strong>Assess your current situation</strong> - Calculate your net worth and analyze your income and expenses</li>
+                        <li><strong>Set specific financial goals</strong> - Both short-term (1 year), medium-term (1-5 years), and long-term (5+ years)</li>
+                        <li><strong>Create a budget</strong> - Use the 50/30/20 rule as a starting point</li>
+                        <li><strong>Build an emergency fund</strong> - Aim for 3-6 months of expenses</li>
+                        <li><strong>Plan for debt reduction</strong> - Prioritize high-interest debt first</li>
+                        <li><strong>Set up retirement contributions</strong> - Start early and contribute consistently</li>
+                    </ul>
+                    <p>Review and adjust your plan quarterly to stay on track with your financial journey.</p>
+                </div>
+            </div>
+    
+            <!-- Question 2 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">What funding options are available specifically for women entrepreneurs? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Women entrepreneurs have several dedicated funding options:</p>
+                    <ul>
+                        <li><strong>Amber Grant</strong> - $10,000 monthly grants with an annual $25,000 award</li>
+                        <li><strong>SBA Women-Owned Small Business Program</strong> - Government contracts specifically for women-owned businesses</li>
+                        <li><strong>Tory Burch Foundation Fellows Program</strong> - Grants, education, and mentoring opportunities</li>
+                        <li><strong>Cartier Women's Initiative Award</strong> - International funding for early-stage women entrepreneurs</li>
+                        <li><strong>Women's Business Centers</strong> - Local assistance and sometimes access to capital</li>
+                        <li><strong>Crowdfunding platforms</strong> - iFundWomen specializes in women-led ventures</li>
+                    </ul>
+                    <p>Check our Funding & Grants section for application deadlines and requirements for each program.</p>
+                </div>
+            </div>
+    
+            <!-- Question 3 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">How can I balance paying off debt while saving for the future? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Balancing debt repayment with saving is a common challenge. Here's a strategic approach:</p>
+                    <ol>
+                        <li><strong>Prioritize high-interest debt</strong> - Pay off credit cards and loans with rates above 8% first</li>
+                        <li><strong>Build a small emergency fund</strong> - Start with $1,000 before aggressive debt repayment</li>
+                        <li><strong>Capture employer matches</strong> - Contribute enough to your retirement to get any employer match</li>
+                        <li><strong>Use the debt avalanche method</strong> - Pay minimums on all debts, then extra on the highest-interest debt</li>
+                        <li><strong>Gradually increase savings</strong> - As debt decreases, redirect payments to savings</li>
+                    </ol>
+                    <p>Consider the 75/25 rule: 75% of extra money toward debt, 25% toward savings until high-interest debt is eliminated.</p>
+                </div>
+            </div>
+    
+            <!-- Question 4 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">What investment strategies work best for women in different life stages? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Investment strategies should evolve with your life stage:</p>
+                    
+                    <p><strong>Early Career (20s-30s):</strong></p>
+                    <ul>
+                        <li>Maximize retirement contributions (401k, IRA)</li>
+                        <li>Higher allocation to stocks (80-90%)</li>
+                        <li>Focus on growth-oriented investments</li>
+                    </ul>
+                    
+                    <p><strong>Mid-Career (30s-40s):</strong></p>
+                    <ul>
+                        <li>Balance between growth and income investments</li>
+                        <li>Consider real estate investments</li>
+                        <li>Moderate stock allocation (70-80%)</li>
+                    </ul>
+                    
+                    <p><strong>Pre-Retirement (50s-60s):</strong></p>
+                    <ul>
+                        <li>Shift toward more conservative investments</li>
+                        <li>Increase bond and dividend stock allocation</li>
+                        <li>Focus on capital preservation</li>
+                    </ul>
+                    
+                    <p>Women typically live longer than men, so maintain some growth investments even in later stages.</p>
+                </div>
+            </div>
+    
+            <!-- Question 5 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">How can I negotiate a higher salary or better benefits? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Effective negotiation strategies for women:</p>
+                    <ul>
+                        <li><strong>Research thoroughly</strong> - Know market rates for your position and experience level</li>
+                        <li><strong>Quantify your achievements</strong> - Use specific numbers and metrics to show your value</li>
+                        <li><strong>Practice with a friend</strong> - Rehearse your talking points and responses to objections</li>
+                        <li><strong>Consider the full package</strong> - Negotiate flexible work arrangements, professional development, and other benefits</li>
+                        <li><strong>Use silence strategically</strong> - After stating your request, wait for the response</li>
+                        <li><strong>Have a BATNA</strong> - Know your Best Alternative To a Negotiated Agreement</li>
+                    </ul>
+                    <p>Remember that women who don't negotiate salary may lose over $500,000 by age 60. It's not just about today's paycheck.</p>
+                </div>
+            </div>
+    
+            <!-- Question 6 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">What are effective strategies for overcoming financial anxiety? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Financial anxiety affects many women. Here are strategies to overcome it:</p>
+                    <ul>
+                        <li><strong>Identify specific triggers</strong> - Track when you feel anxious about money</li>
+                        <li><strong>Create a financial wellness plan</strong> - Small actions build confidence</li>
+                        <li><strong>Practice financial self-care</strong> - Set aside time weekly to review finances calmly</li>
+                        <li><strong>Automate fundamentals</strong> - Set up automatic savings and bill payments</li>
+                        <li><strong>Build financial knowledge</strong> - Take our courses to boost confidence</li>
+                        <li><strong>Use visualization techniques</strong> - Picture your financial goals being achieved</li>
+                        <li><strong>Join our community forums</strong> - Share concerns and solutions with others</li>
+                    </ul>
+                    <p>Remember that financial anxiety is common and addressable with the right support and tools.</p>
+                </div>
+            </div>
+    
+            <!-- Question 7 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">How do I talk to my partner about money without conflict? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Productive financial conversations with partners require strategy:</p>
+                    <ol>
+                        <li><strong>Schedule dedicated "money dates"</strong> - Regular, planned discussions outside of conflict</li>
+                        <li><strong>Start with shared goals</strong> - Focus on what you both want to achieve</li>
+                        <li><strong>Use "I" statements</strong> - "I feel worried when we spend without discussing" vs. "You always overspend"</li>
+                        <li><strong>Understand money personalities</strong> - Take our quiz to identify saver/spender tendencies</li>
+                        <li><strong>Create a judgment-free zone</strong> - Agree to not criticize past decisions</li>
+                        <li><strong>Consider a neutral third party</strong> - A financial counselor can mediate difficult conversations</li>
+                    </ol>
+                    <p>Remember that financial intimacy is built gradually through consistent, respectful communication.</p>
+                </div>
+            </div>
+    
+            <!-- Question 8 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">What tax strategies should women business owners know? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Essential tax strategies for women entrepreneurs:</p>
+                    <ul>
+                        <li><strong>Choose the right business structure</strong> - LLC, S-Corp, or Sole Proprietorship affects taxation</li>
+                        <li><strong>Track all eligible deductions</strong> - Home office, business travel, professional development, etc.</li>
+                        <li><strong>Understand self-employment taxes</strong> - Budget for quarterly estimated tax payments</li>
+                        <li><strong>Leverage retirement accounts</strong> - SEP IRA, Solo 401(k), or SIMPLE IRA can reduce taxable income</li>
+                        <li><strong>Consider hiring family members</strong> - Potentially shift income to lower tax brackets</li>
+                        <li><strong>Plan for healthcare tax credits</strong> - The Small Business Health Care Tax Credit may apply</li>
+                        <li><strong>Keep business and personal expenses separate</strong> - Maintain clean records with dedicated accounts</li>
+                    </ul>
+                    <p>Consult with a tax professional who specializes in small businesses for personalized advice.</p>
+                </div>
+            </div>
+    
+            <!-- Question 9 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">How can I build credit as a woman starting from scratch? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Building credit from zero requires strategic steps:</p>
+                    <ol>
+                        <li><strong>Apply for a secured credit card</strong> - Deposit $200-500 as collateral to start</li>
+                        <li><strong>Become an authorized user</strong> - Ask a trusted family member with good credit</li>
+                        <li><strong>Consider a credit-builder loan</strong> - Community banks and credit unions often offer these</li>
+                        <li><strong>Use Experian Boost or similar services</strong> - Get credit for utility and streaming payments</li>
+                        <li><strong>Keep utilization under 30%</strong> - Never use more than 30% of available credit</li>
+                        <li><strong>Pay everything on time</strong> - Payment history is 35% of your credit score</li>
+                        <li><strong>Be patient</strong> - Building credit takes 6-12 months of consistent positive history</li>
+                    </ol>
+                    <p>Monitor your credit report regularly through annualcreditreport.com and check for errors.</p>
+                </div>
+            </div>
+    
+            <!-- Question 10 -->
+            <div class="question">
+                <h3 onclick="toggleAnswer(this)">What are the most common financial mistakes women make and how can I avoid them? ▼</h3>
+                <div class="answer" style="display: none;">
+                    <p>Common financial pitfalls women should avoid:</p>
+                    <ul>
+                        <li><strong>Not negotiating salary</strong> - Always negotiate initial offers and raises</li>
+                        <li><strong>Delaying investing</strong> - Start early even with small amounts</li>
+                        <li><strong>Excessive emergency helping</strong> - Set boundaries on financial assistance to others</li>
+                        <li><strong>Underestimating longevity</strong> - Plan for a retirement that could last 30+ years</li>
+                        <li><strong>Avoiding financial education</strong> - Build knowledge continuously</li>
+                        <li><strong>Taking on others' debt</strong> - Think carefully before cosigning loans</li>
+                        <li><strong>Prioritizing children's education over retirement</strong> - Secure your oxygen mask first</li>
+                        <li><strong>Maintaining joint accounts only</strong> - Keep some financial independence</li>
+                    </ul>
+                    <p>Our financial coaches can help you develop strategies to avoid these common mistakes.</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Add New Question Section -->
+        <div class="add-question">
+            <input type="text" id="newQuestion" placeholder="Enter your question">
+            <textarea id="newAnswer" placeholder="Enter your answer" rows="4" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+            <button class="btn" onclick="addQuestion()">Add Question</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About SheFunds</h4>
+                    <p>SheFunds is dedicated to empowering women through financial education, resources, and community support. Our mission is to close the gender gap in finance and entrepreneurship.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="financial-courses.html">Financial Courses</a>
+                        <a href="budgeting.html">Budgeting & Calculators</a>
+                        <a href="funding.html">Funding & Grants</a>
+                        <a href="forum.html">Community Forum</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact">
+                        <p>Email: info@shefunds.org</p>
+                        <p>Phone: (555) 123-4567</p>
+                        <p>Address: Azad Nagar,Andheri(W)</p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <p>Stay updated with our latest resources, events, and success stories.</p>
+                    <div class="footer-newsletter">
+                        <input type="email" class="form-control" placeholder="Your email address">
+                        <button class="btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 SheFunds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(questionElement) {
+            var answer = questionElement.nextElementSibling;
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+                questionElement.innerHTML = questionElement.innerHTML.replace("▼", "▲");
+            } else {
+                answer.style.display = "none";
+                questionElement.innerHTML = questionElement.innerHTML.replace("▲", "▼");
+            }
+        }
+    
+        function addQuestion() {
+            var questionText = document.getElementById("newQuestion").value;
+            var answerText = document.getElementById("newAnswer").value;
+    
+            if (questionText.trim() === "" || answerText.trim() === "") {
+                alert("Please enter both a question and an answer.");
+                return;
+            }
+    
+            var forum = document.getElementById("forum");
+    
+            var questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+    
+            var questionH3 = document.createElement("h3");
+            questionH3.innerHTML = questionText + " ▼";
+            questionH3.setAttribute("onclick", "toggleAnswer(this)");
+    
+            var answerDiv = document.createElement("div");
+            answerDiv.className = "answer";
+            answerDiv.style.display = "none";
+            answerDiv.innerHTML = answerText;
+    
+            questionDiv.appendChild(questionH3);
+            questionDiv.appendChild(answerDiv);
+            forum.appendChild(questionDiv);
+            
+            // Clear the form
+            document.getElementById("newQuestion").value = "";
+            document.getElementById("newAnswer").value = "";
+        }
+    </script>
+</body>
+</html>
